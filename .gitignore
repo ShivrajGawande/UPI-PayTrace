@@ -1,0 +1,76 @@
+HELP.md
+
+# =======================
+# Maven
+# =======================
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# =======================
+# Build directories
+# =======================
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# =======================
+# Spring Boot Config
+# =======================
+application.properties
+application.yml
+*.env
+
+# =======================
+# Logs
+# =======================
+*.log
+logs/
+
+# =======================
+# Eclipse / STS
+# =======================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+bin/
+
+# =======================
+# IntelliJ IDEA
+# =======================
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# =======================
+# NetBeans
+# =======================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# =======================
+# VS Code
+# =======================
+.vscode/
+
+# =======================
+# OS files
+# =======================
+.DS_Store
+Thumbs.db
+
+# =======================
+# Archives
+# =======================
+*.jar
+*.war
+*.ear
