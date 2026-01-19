@@ -58,7 +58,7 @@ public class TransactionService {
     		User user = userRepository.findByEmail(principal.getName())
     				.orElseThrow(()-> new RuntimeException("User Not Found"));
         BankAccount bankAccount = bankAccountRepository.findByIdAndUser(bankAccountId, user).
-        		orElseThrow(() -> new RuntimeException("User not Found"));
+        		orElseThrow(() -> new RuntimeException("BankAccout not Found"));
         
         List<Transaction> transactionList = transactionRepository.findByBankAccount(bankAccount);
         List<TransactionResponseDto> transactionDtoList = new ArrayList<>();
