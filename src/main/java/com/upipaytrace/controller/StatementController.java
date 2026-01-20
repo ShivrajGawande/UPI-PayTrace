@@ -1,5 +1,4 @@
 package com.upipaytrace.controller;
-
 import java.security.Principal;
 
 import org.springframework.http.ResponseEntity;
@@ -23,17 +22,12 @@ public class StatementController {
 
     @PostMapping("/upload/{bankAccountId}")
     public ResponseEntity<String> uploadCsv(@RequestParam("file") MultipartFile file,
-                                            @PathVariable Long bankAccountId,
-                                            Principal principal) {
+                                            @PathVariable Long bankAccountId,Principal principal) {
 
         if (file.isEmpty())
-            return ResponseEntity.badRequest().body("CSV file is empty");
+            return ResponseEntity.badRequest().body("Uploaded file is empty");
 
-        if (file.getOriginalFilename() == null ||
-            !file.getOriginalFilename().endsWith(".csv"))
-            return ResponseEntity.badRequest().body("Please upload a CSV file");
-
-        String response = statementService.processCsv(file, bankAccountId, principal);
+        String response = statementService.processStatement(file, bankAccountId, principal);
         return ResponseEntity.ok(response);
     }
 }
