@@ -99,8 +99,9 @@ public class StatementService {
             }
         }
 
-        return "CSV processed successfully | Total: " + totalRows +", UPI: " + upiRows + ", Saved: " + saved +
-               ", Duplicates: " + duplicates +", Invalid: " + invalid;
+        return "Statement processed successfully | Total: " + totalRows + ", UPI: " + upiRows +
+        ", Saved: " + saved + ", Duplicates: " + duplicates + ", Invalid: " + invalid;
+
     }
 
 }
