@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.upipaytrace.dto.JwtAuthenticationResponse;
 import com.upipaytrace.dto.LoginDto;
 import com.upipaytrace.dto.RegisterRequestDto;
 import com.upipaytrace.service.UserService;
@@ -28,10 +29,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginDto loginRequest) {
-
-        String msg = userService.loginUser(loginRequest);
-        return ResponseEntity.ok(msg);
+    public ResponseEntity<JwtAuthenticationResponse> login(
+            @RequestBody LoginDto loginDto) {
+    	return ResponseEntity.ok(userService.loginUser(loginDto));
     }
 }
 

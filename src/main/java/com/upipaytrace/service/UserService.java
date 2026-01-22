@@ -1,14 +1,17 @@
 package com.upipaytrace.service;
 
-
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.upipaytrace.dto.JwtAuthenticationResponse;
 import com.upipaytrace.dto.LoginDto;
 import com.upipaytrace.dto.RegisterRequestDto;
 import com.upipaytrace.entity.User;
 import com.upipaytrace.repository.UserRepository;
+import com.upipaytrace.security.JwtUtils;
 
 import lombok.AllArgsConstructor;
 
@@ -18,6 +21,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
 
     public String registerUser(RegisterRequestDto requestDto) {
 
@@ -35,19 +40,15 @@ public class UserService {
          +userRepository.save(userEntity).getEmail();
     }
 
-    public String loginUser(LoginDto loginDto) {
+    public JwtAuthenticationResponse loginUser(LoginDto loginDto) {
 
-        User user = userRepository.findByEmail(loginDto.getEmail())
-                .orElseThrow(() -> new RuntimeException("User does not exist"));
+    	 	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                         			loginDto.getEmail(),loginDto.getPassword()));
 
-        if (passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
-            return "Login success";
-        } 
-        else
-        {
-            throw new RuntimeException("Invalid password");
-        }
-    }
+         String token = jwtUtils.generateToken(loginDto.getEmail());
+
+         return new JwtAuthenticationResponse(token);
+     }
     
     
 }
